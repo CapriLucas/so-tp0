@@ -20,13 +20,10 @@ int main(void)
 	/* ---------------- ARCHIVOS DE CONFIGURACION ---------------- */
 
 	config = iniciar_config();
-	log_info(logger,"KEY: %s ", config_get_string_value(config, "CLAVE"));
-	
-	// Usando el config creado previamente, leemos los valores del config y los 
-	// dejamos en las variables 'ip', 'puerto' y 'valor'
 
-	// Loggeamos el valor de config
-
+	puerto = config_get_string_value(config,"PUERTO");
+	valor = config_get_string_value(config,"CLAVE");
+	ip = config_get_string_value(config,"IP");
 
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
@@ -40,9 +37,11 @@ int main(void)
 	conexion = crear_conexion(ip, puerto);
 
 	// Enviamos al servidor el valor de CLAVE como mensaje
-
+	enviar_mensaje(valor, conexion);
 	// Armamos y enviamos el paquete
-	paquete(conexion);
+
+	//TODO agregar esto
+	// paquete(conexion);
 
 	terminar_programa(conexion, logger, config);
 
@@ -94,14 +93,11 @@ void paquete(int conexion)
 
 
 	// ¡No te olvides de liberar las líneas y el paquete antes de regresar!
-	
 }
 
 void terminar_programa(int conexion, t_log* logger, t_config* config)
 {
 	log_destroy(logger);
 	config_destroy(config);
-	
-	/* Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config) 
-	  con las funciones de las commons y del TP mencionadas en el enunciado */
+	liberar_conexion(conexion);
 }
