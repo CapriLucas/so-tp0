@@ -52,7 +52,7 @@ int main(void)
 t_log* iniciar_logger(void)
 {
 	t_log* nuevo_logger;
-	nuevo_logger = log_create("./logPruebas", "client", true, LOG_LEVEL_INFO);
+	nuevo_logger = log_create("./logs/logPruebas", "client", true, LOG_LEVEL_INFO);
 	return nuevo_logger;
 }
 
