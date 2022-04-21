@@ -21,6 +21,7 @@ int main(void) {
 			break;
 		case -1:
 			log_error(logger, "el cliente se desconecto. Terminando servidor");
+			close(server_fd);
 			return EXIT_FAILURE;
 		default:
 			log_warning(logger,"Operacion desconocida. No quieras meter la pata");
