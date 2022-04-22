@@ -40,8 +40,7 @@ int main(void)
 	enviar_mensaje(valor, conexion);
 	// Armamos y enviamos el paquete
 
-	//TODO agregar esto
-	// paquete(conexion);
+	paquete(conexion);
 
 	terminar_programa(conexion, logger, config);
 
@@ -79,7 +78,6 @@ void leer_consola(t_log* logger)
 		free(leido);
 		leido = readline("> ");
 	}
-	//TODO esta linea me esta rompiendo?
 	free(leido);
 }
 
@@ -88,11 +86,23 @@ void paquete(int conexion)
 	// Ahora toca lo divertido!
 	char* leido;
 	t_paquete* paquete;
+	paquete = crear_super_paquete();
 
 	// Leemos y esta vez agregamos las lineas al paquete
 
+	leido = readline("> ");
 
-	// ¡No te olvides de liberar las líneas y el paquete antes de regresar!
+	while (strcmp(leido,"") != 0)
+	{
+		//agregar
+		agregar_a_paquete(paquete, leido, strlen(leido) + 1); // Agregamos el size de \0
+
+		free(leido);
+		leido = readline("> ");
+	}
+	free(leido);
+	enviar_paquete(paquete, conexion);
+	eliminar_paquete(paquete);
 }
 
 void terminar_programa(int conexion, t_log* logger, t_config* config)
